@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Real-Time Chat</title>
+    <script>
+      // Prevent benign sandbox development HMR / WebSocket connection warnings from bubbling up
+      (function() {
+        var silenceHandler = function(event) {
+          try {
+            var msg = '';
+            if (event.type === 'error') {
+              msg = event.message || '';
+            } else if (event.type === 'unhandledrejection') {
+              var r = event.reason;
+              msg = r ? (r.message || String(r)) : '';
+            }
+            if (
+              msg && (
+                msg.indexOf('WebSocket') !== -1 || 
+                msg.indexOf('websocket') !== -1 || 
+                msg.indexOf('vite') !== -1 ||
+                msg.indexOf('Vite') !== -1 ||
+                msg.indexOf('HMR') !== -1
+              )
+            ) {
+              event.preventDefault();
+              if (event.stopImmediatePropagation) {
+                event.stopImmediatePropagation();
+              }
+              if (event.stopPropagation) {
+                event.stopPropagation();
+              }
+            }
+          } catch (e) {
+            // Safe fallback
+          }
+        };
+        window.addEventListener('error', silenceHandler, true);
+        window.addEventListener('unhandledrejection', silenceHandler, true);
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

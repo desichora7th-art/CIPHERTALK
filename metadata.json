@@ -1,0 +1,6 @@
+{
+  "name": "Real-Time Chat",
+  "description": "A real-time chatting application where users register with a username and password, add friends by their usernames, and exchange direct messages instantly.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
